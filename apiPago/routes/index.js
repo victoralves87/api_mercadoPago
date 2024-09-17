@@ -3,7 +3,7 @@ const {MercadoPagoConfig,Payment} = require ('mercadopago')
 // Step 2: Initialize the client object
 const client = new MercadoPagoConfig(
   {
-    accessToken: 'access_token',
+    accessToken: '..',
     options: { timeout: 5000, idempotencyKey: 'abc' }
   }
 );
@@ -38,11 +38,21 @@ router.post("/criar-pix", function(req, res, next) {
       }
     }
   };
+
+  const requestOptions = {idempotencyKey:
+    '<SOME_UNIQUE_VALUE>'
+  }
   
 
   payment.create({body,requestOptions})
-  .then(console.log)
-  .catch(console.log)
+  .then((result) =>{
+    console.log("result")
+    console.log(result)
+  })
+  .catch((error) =>{
+    console.log("error")
+    console.log(error)
+  })
 
   res.send("OK");
 });
