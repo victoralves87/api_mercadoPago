@@ -1,6 +1,6 @@
 const {MercadoPagoConfig,Payment} = require ('mercadopago')
 
-// Step 2: Initialize the client object
+// Step 2:  the client object
 const client = new MercadoPagoConfig(
   {
     accessToken: 'APP_USR-5193185363162038-091622-bb6107b7aa5846a084f83c1787461acd-452444709',
@@ -45,17 +45,17 @@ router.post("/criar-pix", function(req, res, next) {
   
   
 
-  payment.create({body,requestOptions})
-  .then((result) =>{
-    console.log("result")
-    console.log(result)
+  payment.create({ body, requestOptions })
+  .then((result) => {
+    // Retorna o QR code para o frontend
+    res.json({
+      qrCode: result.point_of_interaction.transaction_data.qr_code_base64
+    });
   })
-  .catch((error) =>{
-    console.log("error")
-    console.log(error)
-  })
-
-  res.send("OK");
+  .catch((error) => {
+    console.error("error", error);
+    res.status(500).json({ error: 'Erro ao gerar o QR code.' });
+  });
 });
 
 module.exports = router;
