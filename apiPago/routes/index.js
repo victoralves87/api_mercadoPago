@@ -3,7 +3,7 @@ const {MercadoPagoConfig,Payment} = require ('mercadopago')
 // Step 2:  the client object
 const client = new MercadoPagoConfig(
   {
-    accessToken: 'APP_USR-5193185363162038-091622-bb6107b7aa5846a084f83c1787461acd-452444709',
+    accessToken: '',
     options: { timeout: 5000, idempotencyKey: 'abc' }
   }
 );
